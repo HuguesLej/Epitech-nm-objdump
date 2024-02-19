@@ -1,0 +1,8 @@
+.vscode
+nm
+objdump
+a.out
+*.o
+*.a
+vgcore*
+build
