@@ -10,10 +10,11 @@ NM_DIR	=	my_nm
 OBJDUMP_DIR	=	my_objdump
 
 NM_SRC	=	\
-		$(NM_DIR)/main.c
+		$(NM_DIR)/src/main.c	\
+		$(NM_DIR)/src/unnamed.c
 
 OBJDUMP_SRC	=	\
-		$(OBJDUMP_DIR)/main.c
+		$(OBJDUMP_DIR)/src/main.c
 
 BUILD	=	build
 
@@ -23,7 +24,11 @@ OBJDUMP_OBJ	=	$(OBJDUMP_SRC:%.c=$(BUILD)/%.o)
 
 CC	=	gcc
 
-CFLAGS	=	-I./include -W -Wall -Wextra -Werror -g
+NM_INC	=	-I./$(NM_DIR)/include
+
+OBJDUMP_INC	=	-I./$(OBJDUMP_DIR)/include
+
+CFLAGS	=	-W -Wall -Wextra -Werror -g
 
 MAKEFLAGS	=	--no-print-directory
 
@@ -36,19 +41,23 @@ DIE	=	exit 1
 %.c:
 	@echo -e "\033[1;31mFile not found: $@\033[0m" && $(DIE)
 
-$(BUILD)/%.o: %.c
+$(BUILD)/$(NM_DIR)/%.o: $(NM_DIR)/%.c
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) -c $< -o $@ || $(DIE)
+	@$(CC) $(CFLAGS) $(NM_INC) -c $< -o $@ || $(DIE)
+
+$(BUILD)/$(OBJDUMP_DIR)/%.o: $(OBJDUMP_DIR)/%.c
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) $(OBJDUMP_INC) -c $< -o $@ || $(DIE)
 
 all:	$(NM_BIN) $(OBJDUMP_BIN)
 
 $(NM_BIN):	$(NM_OBJ)
-	@gcc -o $(NM_BIN) $(NM_OBJ) $(CFLAGS)
+	@gcc -o $(NM_BIN) $(NM_OBJ) $(NM_INC) $(CFLAGS)
 	@echo -e "\033[1;36m[$(NM_BIN)]: Successfully build\033[0m"
 	@echo -e "\033[1;36mCompiled $(shell echo "$?" | wc -w) file(s)\033[0m"
 
 $(OBJDUMP_BIN):	$(OBJDUMP_OBJ)
-	@gcc -o $(OBJDUMP_BIN) $(OBJDUMP_OBJ) $(CFLAGS)
+	@gcc -o $(OBJDUMP_BIN) $(OBJDUMP_OBJ) $(OBJDUMP_INC) $(CFLAGS)
 	@echo -e "\033[1;36m[$(OBJDUMP_BIN)]: Successfully build\033[0m"
 	@echo -e "\033[1;36mCompiled $(shell echo "$?" | wc -w) file(s)\033[0m"
 
