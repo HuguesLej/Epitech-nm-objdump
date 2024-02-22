@@ -1,6 +1,6 @@
 .vscode
-nm
-objdump
+my_nm
+my_objdump
 a.out
 *.o
 *.a

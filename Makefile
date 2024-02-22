@@ -5,9 +5,9 @@
 ## Makefile
 ##
 
-NM_DIR	=	my_nm
+NM_DIR	=	nm
 
-OBJDUMP_DIR	=	my_objdump
+OBJDUMP_DIR	=	objdump
 
 NM_SRC	=	\
 		$(NM_DIR)/src/main.c	\
@@ -32,9 +32,9 @@ CFLAGS	=	-W -Wall -Wextra -Werror -g
 
 MAKEFLAGS	=	--no-print-directory
 
-NM_BIN	=	nm
+NM_BIN	=	my_nm
 
-OBJDUMP_BIN	=	objdump
+OBJDUMP_BIN	=	my_objdump
 
 DIE	=	exit 1
 
