@@ -51,6 +51,10 @@ $(BUILD)/$(OBJDUMP_DIR)/%.o: $(OBJDUMP_DIR)/%.c
 
 all:	$(NM_BIN) $(OBJDUMP_BIN)
 
+nm:	$(NM_BIN)
+
+objdump:	$(OBJDUMP_BIN)
+
 $(NM_BIN):	$(NM_OBJ)
 	@gcc -o $(NM_BIN) $(NM_OBJ) $(NM_INC) $(CFLAGS)
 	@echo -e "\033[1;36m[$(NM_BIN)]: Successfully build\033[0m"
@@ -73,4 +77,4 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY:	all clean fclean re
+.PHONY:	all clean fclean re nm objdump
