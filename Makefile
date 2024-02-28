@@ -10,8 +10,8 @@ NM_DIR	=	nm
 OBJDUMP_DIR	=	objdump
 
 NM_SRC	=	\
-		$(NM_DIR)/src/main.c	\
-		$(NM_DIR)/src/unnamed.c
+		$(NM_DIR)/src/main.c		\
+		$(NM_DIR)/src/open_file.c
 
 OBJDUMP_SRC	=	\
 		$(OBJDUMP_DIR)/src/main.c

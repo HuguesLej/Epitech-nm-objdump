@@ -7,4 +7,14 @@
 
 #pragma once
 
-void unnamed(const char *str);
+#include <elf.h>
+#include <fcntl.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <sys/stat.h>
+#include <sys/mman.h>
+#include <unistd.h>
+
+#include <stdio.h>
+
+bool open_file(const char *str);

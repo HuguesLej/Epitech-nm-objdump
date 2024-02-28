@@ -6,3 +6,4 @@ a.out
 *.a
 vgcore*
 build
+coding-style-reports.log

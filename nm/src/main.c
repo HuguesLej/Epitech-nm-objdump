@@ -13,10 +13,12 @@ int main(int ac, char **av)
 
     (void)exit_code;
     if (ac == 1) {
-        unnamed("a.out");
+        if (!open_file("a.out"))
+            return 84;
     }
     for (int i = 1; i < ac; i++) {
-        unnamed(av[i]);
+        if (!open_file(av[i]))
+            return 84;
     }
     return 0;
 }
