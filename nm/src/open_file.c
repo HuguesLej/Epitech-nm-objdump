@@ -7,23 +7,45 @@
 
 #include "nm.h"
 
-char choose_char(unsigned char type, unsigned char bind)
+char choose_char(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags)
 {
-    unsigned char c;
+    char characters[] = {
+        'A',
+        'B', 'b',
+        'C', 'c',
+        'D', 'd',
+        'G', 'g',
+        'i',
+        'I',
+        'N',
+        'n',
+        'p',
+        'R', 'r',
+        'S', 's',
+        'T', 't',
+        'U',
+        'u',
+        'V', 'v',
+        'W', 'w',
+        '-',
+        '?'
+    };
+    (void) characters;
 
-    (void) type;
-    (void) bind;
+    (void) sh_type;
+    (void) sh_flags;
 
-    switch (type) {
-        case STT_NOTYPE:
-            c = '?';
-            break;
-        default:
-            c = ' ';
+    unsigned char c = '?';
+
+
+    if (ELF64_ST_BIND(sym->st_info) == STB_WEAK) {
+        if (sym->st_shndx == SHN_UNDEF) {
+            c = 'w';
+        } else {
+            c = 'W';
+        }
     }
 
-    if (bind == STB_WEAK && c == '?')
-        c = 'w';
 
     return c;
 }
@@ -58,11 +80,11 @@ bool open_file(const char *str)
 
             for (unsigned long j = 0; j < (shdr[i].sh_size / sizeof(Elf64_Sym)); j++) {
                 if (sym[j].st_info != STT_FILE) {
-                    printf("%016lx %c %u %s\n",
-                    sym[j].st_value,
-                    choose_char(ELF64_ST_TYPE(sym[j].st_info), ELF64_ST_BIND(sym[j].st_info)),
-                    ELF64_ST_BIND(sym[j].st_info),
-                    tab + sym[j].st_name);
+                    printf("%016lx %c %s\n",
+                        sym[j].st_value,
+                        choose_char(&sym[j], shdr[sym[j].st_shndx].sh_type, shdr[sym[j].st_shndx].sh_flags),
+                        tab + sym[j].st_name
+                    );
                 }
             }
         }
