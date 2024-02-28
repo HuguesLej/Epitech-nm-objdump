@@ -7,3 +7,4 @@ a.out
 vgcore*
 build
 coding-style-reports.log
+*.txt
