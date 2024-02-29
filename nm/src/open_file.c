@@ -47,8 +47,13 @@ char choose_char(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags)
     unsigned char st_bind = ELF64_ST_BIND(sym->st_info);
 
 
-    if (st_type == STB_GNU_UNIQUE)
+    if (st_type == STB_GNU_UNIQUE) {
         c = 'u';
+    }
+
+    if (sh_type == STT_NOTYPE) {
+        c = 'U';
+    }
 
     if (st_bind == STB_WEAK) {
         c = 'w';
@@ -61,6 +66,10 @@ char choose_char(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags)
     if ((c == 'w' || c == 'v') && sym->st_shndx != SHN_UNDEF) {
         c = char_to_uppercase(c);
     }
+
+    // if (st_bind == STB_GLOBAL) {
+    //     c = char_to_uppercase(c);
+    // }
 
 
     return c;
