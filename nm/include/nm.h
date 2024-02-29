@@ -16,6 +16,15 @@
 #include <unistd.h>
 #include <stdio.h>
 
+typedef struct file_s {
+    int fd;
+    void *buf;
+    Elf64_Ehdr *ehdr;
+    Elf64_Shdr *shdr;
+    Elf64_Sym *sym;
+    char *sym_tab;
+} file_t;
+
 typedef struct symbols_s {
     unsigned long addr;
     char type;
