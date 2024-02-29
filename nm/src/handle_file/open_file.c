@@ -22,7 +22,7 @@ bool open_file(file_t *file, const char *path)
         perror("fstat");
         return false;
     }
-    if ((file_stat.st_mode&S_IFMT) == S_IFDIR) {
+    if ((file_stat.st_mode & S_IFMT) == S_IFDIR) {
         print_error(IS_DIR, path);
         return false;
     }

@@ -15,4 +15,7 @@ void print_error(unsigned flag, const char *str)
     if (flag == IS_DIR) {
         dprintf(STDERR_FILENO, "nm: Warning: '%s' is a directory\n", str);
     }
+    if (flag == WG_FILE) {
+        dprintf(STDERR_FILENO, "nm: %s: file format not recognized\n", str);
+    }
 }

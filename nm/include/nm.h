@@ -18,6 +18,7 @@
 
 #define NO_FILE 0
 #define IS_DIR 1
+#define WG_FILE 2
 
 typedef struct file_s {
     int fd;
@@ -25,8 +26,6 @@ typedef struct file_s {
     void *buf;
     Elf64_Ehdr *ehdr;
     Elf64_Shdr *shdr;
-    Elf64_Sym *sym;
-    char *sym_tab;
 } file_t;
 
 typedef struct symbols_s {
@@ -42,6 +41,8 @@ typedef struct s_bounds_s {
     symbols_t *end;
 } s_bounds_t;
 
+bool process_file(file_t *file, const char *path);
 bool open_file(file_t *file, const char *path);
 bool close_file(int fd);
 void print_error(unsigned flag, const char *str);
+bool get_file_content(file_t *file, const char *path);

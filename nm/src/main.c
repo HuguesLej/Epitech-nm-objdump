@@ -14,18 +14,14 @@ int main(int ac, char **av)
     int exit_code = 0;
 
     if (ac == 1) {
-        success = open_file(&file, "a.out");
+        success = process_file(&file, "a.out");
         if (!success)
             return 84;
-        close_file(file.fd);
     }
     for (int i = 1; i < ac; i++) {
-        success = open_file(&file, av[i]);
-        if (!success) {
+        success = process_file(&file, av[i]);
+        if (!success)
             exit_code = 84;
-            continue;
-        }
-        close_file(file.fd);
     }
     return exit_code;
 }
