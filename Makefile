@@ -11,9 +11,10 @@ OBJDUMP_DIR	=	objdump
 
 NM_SRC	=	\
 		$(NM_DIR)/src/main.c		\
-		$(NM_DIR)/src/open_file.c	\
-		$(NM_DIR)/src/close_file.c	\
-		$(NM_DIR)/src/print_error.c
+		$(NM_DIR)/src/print_error.c	\
+		\
+		$(NM_DIR)/src/handle_file/open_file.c	\
+		$(NM_DIR)/src/handle_file/close_file.c
 
 OBJDUMP_SRC	=	\
 		$(OBJDUMP_DIR)/src/main.c
