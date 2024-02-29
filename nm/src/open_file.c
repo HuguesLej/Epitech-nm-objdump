@@ -23,23 +23,6 @@ char char_to_uppercase(char c)
 
 char choose_char(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags)
 {
-    char characters[] = {
-        'D', 'd',
-        'G', 'g',
-        'i',
-        'I',
-        'N',
-        'n',
-        'p',
-        'R', 'r',
-        'S', 's',
-        'T', 't',
-        '-'
-    };
-    (void) characters;
-
-    (void) sh_flags;
-
     char c = '?';
     unsigned char st_type = ELF64_ST_TYPE(sym->st_info);
     unsigned char st_bind = ELF64_ST_BIND(sym->st_info);
@@ -63,6 +46,10 @@ char choose_char(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags)
         c = 'b';
     } else if ((sh_type == SHT_PROGBITS || sh_type == SHT_FINI_ARRAY || sh_type == SHT_DYNAMIC || sh_type == SHT_INIT_ARRAY) && sh_flags == (SHF_ALLOC|SHF_WRITE)) {
         c = 'd';
+    } else if ((sh_type == SHT_PROGBITS || sh_type == SHT_NOTE) && sh_flags == SHF_ALLOC) {
+        c = 'r';
+    } else if (sh_type == SHT_PROGBITS && sh_flags == (SHF_ALLOC | SHF_EXECINSTR)) {
+        c = 't';
     }
 
     if ((c == 'w' || c == 'v') && sym->st_shndx != SHN_UNDEF) {
