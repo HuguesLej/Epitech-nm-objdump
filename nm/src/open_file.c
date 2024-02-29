@@ -7,6 +7,13 @@
 
 #include "nm.h"
 
+char char_to_uppercase(char c)
+{
+    char upper_c = c - 32;
+
+    return upper_c;
+}
+
 char choose_char(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags)
 {
     char characters[] = {
@@ -35,15 +42,24 @@ char choose_char(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags)
     (void) sh_type;
     (void) sh_flags;
 
-    unsigned char c = '?';
+    char c = '?';
+    unsigned char st_type = ELF64_ST_TYPE(sym->st_info);
+    unsigned char st_bind = ELF64_ST_BIND(sym->st_info);
 
 
-    if (ELF64_ST_BIND(sym->st_info) == STB_WEAK) {
-        if (sym->st_shndx == SHN_UNDEF) {
-            c = 'w';
-        } else {
-            c = 'W';
-        }
+    if (st_type == STB_GNU_UNIQUE)
+        c = 'u';
+
+    if (st_bind == STB_WEAK) {
+        c = 'w';
+    }
+
+    if (c == 'w' && st_type == STT_OBJECT) {
+        c = 'v';
+    }
+
+    if ((c == 'w' || c == 'v') && sym->st_shndx != SHN_UNDEF) {
+        c = char_to_uppercase(c);
     }
 
 
