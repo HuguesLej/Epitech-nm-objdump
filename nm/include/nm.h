@@ -16,8 +16,12 @@
 #include <unistd.h>
 #include <stdio.h>
 
+#define NO_FILE 0
+#define IS_DIR 1
+
 typedef struct file_s {
     int fd;
+    long size;
     void *buf;
     Elf64_Ehdr *ehdr;
     Elf64_Shdr *shdr;
@@ -38,4 +42,6 @@ typedef struct s_bounds_s {
     symbols_t *end;
 } s_bounds_t;
 
-bool open_file(const char *str);
+bool open_file(file_t *file, const char *path);
+bool close_file(int fd);
+void print_error(unsigned flag, const char *str);

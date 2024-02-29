@@ -9,16 +9,23 @@
 
 int main(int ac, char **av)
 {
+    file_t file;
+    bool success;
     int exit_code = 0;
 
-    (void)exit_code;
     if (ac == 1) {
-        if (!open_file("a.out"))
+        success = open_file(&file, "a.out");
+        if (!success)
             return 84;
+        close_file(file.fd);
     }
     for (int i = 1; i < ac; i++) {
-        if (!open_file(av[i]))
-            return 84;
+        success = open_file(&file, av[i]);
+        if (!success) {
+            exit_code = 84;
+            continue;
+        }
+        close_file(file.fd);
     }
-    return 0;
+    return exit_code;
 }
