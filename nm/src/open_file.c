@@ -7,6 +7,13 @@
 
 #include "nm.h"
 
+bool is_uppercase(char c)
+{
+    if (c < 'A' || c > 'Z')
+        return false;
+    return true;
+}
+
 char char_to_uppercase(char c)
 {
     char upper_c = c - 32;
@@ -17,9 +24,6 @@ char char_to_uppercase(char c)
 char choose_char(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags)
 {
     char characters[] = {
-        'A',
-        'B', 'b',
-        'C', 'c',
         'D', 'd',
         'G', 'g',
         'i',
@@ -30,16 +34,10 @@ char choose_char(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags)
         'R', 'r',
         'S', 's',
         'T', 't',
-        'U',
-        'u',
-        'V', 'v',
-        'W', 'w',
-        '-',
-        '?'
+        '-'
     };
     (void) characters;
 
-    (void) sh_type;
     (void) sh_flags;
 
     char c = '?';
@@ -51,29 +49,35 @@ char choose_char(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags)
         c = 'u';
     }
 
-    if (sh_type == STT_NOTYPE) {
-        c = 'U';
-    }
-
-    if (st_bind == STB_WEAK) {
-        c = 'w';
-    }
-
-    if (c == 'w' && st_type == STT_OBJECT) {
+    if (st_bind == STB_WEAK && st_type == STT_OBJECT) {
         c = 'v';
+    } else if (st_bind == STB_WEAK) {
+        c = 'w';
+    } else if (sh_type == STT_NOTYPE) {
+        c = 'U';
+    } else if (sym->st_shndx == SHN_ABS) {
+        c = 'a';
+    } else if (sym->st_shndx == SHN_COMMON) {
+        c = 'c';
+    } else if (sh_type == SHT_NOBITS && sh_flags == (SHF_ALLOC|SHF_WRITE)) {
+        c = 'b';
+    } else if ((sh_type == SHT_PROGBITS || sh_type == SHT_FINI_ARRAY || sh_type == SHT_DYNAMIC || sh_type == SHT_INIT_ARRAY) && sh_flags == (SHF_ALLOC|SHF_WRITE)) {
+        c = 'd';
     }
 
     if ((c == 'w' || c == 'v') && sym->st_shndx != SHN_UNDEF) {
         c = char_to_uppercase(c);
     }
 
-    // if (st_bind == STB_GLOBAL) {
-    //     c = char_to_uppercase(c);
-    // }
+    if (st_bind == STB_GLOBAL && !is_uppercase(c) && c != '?') {
+        c = char_to_uppercase(c);
+    }
 
 
     return c;
 }
+
+#include <string.h>
 
 bool open_file(const char *str)
 {
