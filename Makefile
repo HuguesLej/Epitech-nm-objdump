@@ -12,6 +12,7 @@ OBJDUMP_DIR	=	objdump
 NM_SRC	=	\
 		$(NM_DIR)/src/main.c			\
 		$(NM_DIR)/src/process_file.c	\
+		$(NM_DIR)/src/print_symbols.c	\
 		\
 		$(NM_DIR)/src/utils/print_error.c		\
 		$(NM_DIR)/src/utils/char_uppercase.c 	\

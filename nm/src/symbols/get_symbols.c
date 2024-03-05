@@ -24,7 +24,6 @@ static void fill_symbols(file_t *file, symbols_t **symbols, Elf64_Sym *sym,
     new->addr = sym->st_value;
     new->name = sym_tab + sym->st_name;
     new->type = get_type(sym, sh_type, sh_flags);
-    printf("%016lx %c %s\n", new->addr, new->type, new->name);
 }
 
 void get_symbols(file_t *file, symbols_t **symbols)

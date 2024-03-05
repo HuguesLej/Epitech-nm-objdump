@@ -13,6 +13,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <unistd.h>
@@ -46,3 +47,4 @@ void get_symbols(file_t *file, symbols_t **symbols);
 char get_type(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags);
 bool is_char_uppercase(char c);
 char char_to_uppercase(char c);
+void print_symbols(symbols_t **symbols);

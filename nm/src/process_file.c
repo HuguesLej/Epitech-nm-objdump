@@ -19,6 +19,7 @@ bool process_file(file_t *file, const char *path)
     if (!success)
         return false;
     get_symbols(file, &symbols);
+    print_symbols(&symbols);
     success = close_file(file->fd);
     if (!success)
         return false;
