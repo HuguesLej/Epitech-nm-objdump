@@ -10,6 +10,7 @@
 bool process_file(file_t *file, const char *path)
 {
     bool success;
+    symbols_t *symbols = NULL;
 
     success = open_file(file, path);
     if (!success)
@@ -17,6 +18,7 @@ bool process_file(file_t *file, const char *path)
     success = get_file_content(file, path);
     if (!success)
         return false;
+    get_symbols(file, &symbols);
     success = close_file(file->fd);
     if (!success)
         return false;

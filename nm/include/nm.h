@@ -11,10 +11,11 @@
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <unistd.h>
-#include <stdio.h>
 
 #define NO_FILE 0
 #define IS_DIR 1
@@ -32,17 +33,16 @@ typedef struct symbols_s {
     unsigned long addr;
     char type;
     char *name;
-    struct symbols_s *prev;
     struct symbols_s *next;
 } symbols_t;
-
-typedef struct s_bounds_s {
-    symbols_t *start;
-    symbols_t *end;
-} s_bounds_t;
 
 bool process_file(file_t *file, const char *path);
 bool open_file(file_t *file, const char *path);
 bool close_file(int fd);
 void print_error(unsigned flag, const char *str);
 bool get_file_content(file_t *file, const char *path);
+symbols_t *add_element(symbols_t **symbols);
+void get_symbols(file_t *file, symbols_t **symbols);
+char get_type(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags);
+bool is_char_uppercase(char c);
+char char_to_uppercase(char c);

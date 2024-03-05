@@ -12,11 +12,18 @@ OBJDUMP_DIR	=	objdump
 NM_SRC	=	\
 		$(NM_DIR)/src/main.c			\
 		$(NM_DIR)/src/process_file.c	\
-		$(NM_DIR)/src/print_error.c		\
+		\
+		$(NM_DIR)/src/utils/print_error.c		\
+		$(NM_DIR)/src/utils/char_uppercase.c 	\
 		\
 		$(NM_DIR)/src/handle_file/open_file.c			\
 		$(NM_DIR)/src/handle_file/close_file.c			\
-		$(NM_DIR)/src/handle_file/get_file_content.c
+		$(NM_DIR)/src/handle_file/get_file_content.c	\
+		\
+		$(NM_DIR)/src/symbols/get_symbols.c		\
+		$(NM_DIR)/src/symbols/get_type.c		\
+		\
+		$(NM_DIR)/src/list/add_element.c
 
 OBJDUMP_SRC	=	\
 		$(OBJDUMP_DIR)/src/main.c
