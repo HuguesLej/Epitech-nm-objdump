@@ -25,7 +25,8 @@ NM_SRC	=	\
 		$(NM_DIR)/src/symbols/get_type.c		\
 		\
 		$(NM_DIR)/src/list/add_element.c	\
-		$(NM_DIR)/src/list/free_list.c
+		$(NM_DIR)/src/list/free_list.c		\
+		$(NM_DIR)/src/list/sort_list.c
 
 OBJDUMP_SRC	=	\
 		$(OBJDUMP_DIR)/src/main.c

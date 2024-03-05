@@ -28,6 +28,7 @@ bool process_file(file_t *file, const char *path)
     if (!success)
         return false;
     get_symbols(file, &symbols);
+    sort_list(&symbols);
     print_symbols(&symbols);
     success = end_process(file, &symbols);
     if (!success)

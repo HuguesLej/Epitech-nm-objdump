@@ -44,6 +44,7 @@ void print_error(unsigned flag, const char *str);
 bool get_file_content(file_t *file, const char *path);
 symbols_t *add_element(symbols_t **symbols);
 void free_list(symbols_t **symbols);
+void sort_list(symbols_t **symbols);
 void get_symbols(file_t *file, symbols_t **symbols);
 char get_type(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags);
 bool is_char_uppercase(char c);
