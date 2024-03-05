@@ -43,7 +43,8 @@ char get_type(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags)
         c = 'v';
     if (st_bind == STB_WEAK)
         c = 'w';
-    c = find_type(c, sym->st_shndx, sh_type, sh_flags);
+    if (c == '?')
+        c = find_type(c, sym->st_shndx, sh_type, sh_flags);
     if ((c == 'w' || c == 'v') && sym->st_shndx != SHN_UNDEF)
         c = char_to_uppercase(c);
     is_up = is_char_uppercase(c);
