@@ -10,12 +10,12 @@
 void print_error(unsigned flag, const char *str)
 {
     if (flag == NO_FILE) {
-        dprintf(STDERR_FILENO, "nm: '%s': No such file\n", str);
+        dprintf(STDERR_FILENO, "my_nm: '%s': No such file\n", str);
     }
     if (flag == IS_DIR) {
-        dprintf(STDERR_FILENO, "nm: Warning: '%s' is a directory\n", str);
+        dprintf(STDERR_FILENO, "my_nm: Warning: '%s' is a directory\n", str);
     }
     if (flag == WG_FILE) {
-        dprintf(STDERR_FILENO, "nm: %s: file format not recognized\n", str);
+        dprintf(STDERR_FILENO, "my_nm: %s: file format not recognized\n", str);
     }
 }

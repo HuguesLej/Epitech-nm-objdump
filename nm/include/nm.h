@@ -37,7 +37,7 @@ typedef struct symbols_s {
     struct symbols_s *next;
 } symbols_t;
 
-bool process_file(file_t *file, const char *path);
+bool process_file(file_t *file, const char *path, bool are_mult_files);
 bool open_file(file_t *file, const char *path);
 bool close_file(int fd);
 void print_error(unsigned flag, const char *str);
@@ -49,4 +49,4 @@ void get_symbols(file_t *file, symbols_t **symbols);
 char get_type(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags);
 bool is_char_uppercase(char c);
 char char_to_uppercase(char c);
-void print_symbols(symbols_t **symbols);
+void print_symbols(symbols_t **symbols, const char *path, bool are_mult_files);

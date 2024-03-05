@@ -7,11 +7,13 @@
 
 #include "nm.h"
 
-void print_symbols(symbols_t **symbols)
+void print_symbols(symbols_t **symbols, const char *path, bool are_mult_files)
 {
     symbols_t *tmp = *symbols;
     int cmp;
 
+    if (are_mult_files)
+        printf("\n%s:\n", path);
     while (tmp != NULL) {
         cmp = strcmp(tmp->name, "");
         if (cmp == 0) {
