@@ -21,6 +21,7 @@
 #define NO_FILE 0
 #define IS_DIR 1
 #define WG_FILE 2
+#define NO_SYM 3
 
 typedef struct file_s {
     int fd;

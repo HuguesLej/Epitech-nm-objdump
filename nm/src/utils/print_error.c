@@ -18,4 +18,7 @@ void print_error(unsigned flag, const char *str)
     if (flag == WG_FILE) {
         dprintf(STDERR_FILENO, "my_nm: %s: file format not recognized\n", str);
     }
+    if (flag == NO_SYM) {
+        dprintf(STDERR_FILENO, "my_nm: %s: no symbols\n", str);
+    }
 }
