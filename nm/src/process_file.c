@@ -7,6 +7,15 @@
 
 #include "nm.h"
 
+static bool end_process(file_t *file, symbols_t **symbols)
+{
+    bool success;
+
+    success = close_file(file->fd);
+    free_list(symbols);
+    return success;
+}
+
 bool process_file(file_t *file, const char *path)
 {
     bool success;
@@ -20,7 +29,7 @@ bool process_file(file_t *file, const char *path)
         return false;
     get_symbols(file, &symbols);
     print_symbols(&symbols);
-    success = close_file(file->fd);
+    success = end_process(file, &symbols);
     if (!success)
         return false;
     return true;
