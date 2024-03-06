@@ -94,6 +94,7 @@ $(OBJDUMP_BIN):	$(COMMON_OBJ) $(OBJDUMP_OBJ)
 	@echo -e "\033[1;36mCompiled $(shell echo "$?" | wc -w) file(s)\033[0m"
 
 clean:
+	@rm -f $(COMMON_OBJ)
 	@rm -f $(NM_OBJ)
 	@rm -f $(OBJDUMP_OBJ)
 	@echo -e "\033[1;33mObject files successfully cleaned\033[0m"
