@@ -13,10 +13,12 @@ void print_error(unsigned flag, const char *bin, const char *path)
         dprintf(STDERR_FILENO, "%s: '%s': No such file\n", bin, path);
     }
     if (flag == IS_DIR) {
-        dprintf(STDERR_FILENO, "%s: Warning: '%s' is a directory\n", bin, path);
+        dprintf(STDERR_FILENO, "%s: Warning: '%s' is a directory\n",
+            bin, path);
     }
     if (flag == WG_FILE) {
-        dprintf(STDERR_FILENO, "%s: %s: file format not recognized\n", bin, path);
+        dprintf(STDERR_FILENO, "%s: %s: file format not recognized\n",
+            bin, path);
     }
     if (flag == NO_SYM) {
         dprintf(STDERR_FILENO, "%s: %s: no symbols\n", bin, path);
