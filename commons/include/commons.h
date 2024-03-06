@@ -2,11 +2,10 @@
 ** EPITECH PROJECT, 2024
 ** B-PSU-400-REN-4-1-nmobjdump-hugues.lejeune
 ** File description:
-** objdump
+** commons
 */
 
 #pragma once
 
-#include "commons.h"
-
-bool process_file(const char *bin, const char *path);
+#include <stdbool.h>
+#include <stddef.h>

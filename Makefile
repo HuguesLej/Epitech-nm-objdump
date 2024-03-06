@@ -39,6 +39,8 @@ OBJDUMP_OBJ	=	$(OBJDUMP_SRC:%.c=$(BUILD)/%.o)
 
 CC	=	gcc
 
+COMMON_INCLUDE	=	-I./commons/include
+
 NM_INC	=	-I./$(NM_DIR)/include
 
 OBJDUMP_INC	=	-I./$(OBJDUMP_DIR)/include
@@ -58,11 +60,11 @@ DIE	=	exit 1
 
 $(BUILD)/$(NM_DIR)/%.o: $(NM_DIR)/%.c
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) $(NM_INC) -c $< -o $@ || $(DIE)
+	@$(CC) $(CFLAGS) $(NM_INC) $(COMMON_INCLUDE) -c $< -o $@ || $(DIE)
 
 $(BUILD)/$(OBJDUMP_DIR)/%.o: $(OBJDUMP_DIR)/%.c
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) $(OBJDUMP_INC) -c $< -o $@ || $(DIE)
+	@$(CC) $(CFLAGS) $(OBJDUMP_INC) $(COMMON_INCLUDE) -c $< -o $@ || $(DIE)
 
 all:	$(NM_BIN) $(OBJDUMP_BIN)
 
@@ -71,12 +73,12 @@ nm:	$(NM_BIN)
 objdump:	$(OBJDUMP_BIN)
 
 $(NM_BIN):	$(NM_OBJ)
-	@gcc -o $(NM_BIN) $(NM_OBJ) $(NM_INC) $(CFLAGS)
+	@gcc -o $(NM_BIN) $(NM_OBJ) $(CFLAGS)
 	@echo -e "\033[1;36m[$(NM_BIN)]: Successfully build\033[0m"
 	@echo -e "\033[1;36mCompiled $(shell echo "$?" | wc -w) file(s)\033[0m"
 
 $(OBJDUMP_BIN):	$(OBJDUMP_OBJ)
-	@gcc -o $(OBJDUMP_BIN) $(OBJDUMP_OBJ) $(OBJDUMP_INC) $(CFLAGS)
+	@gcc -o $(OBJDUMP_BIN) $(OBJDUMP_OBJ) $(CFLAGS)
 	@echo -e "\033[1;36m[$(OBJDUMP_BIN)]: Successfully build\033[0m"
 	@echo -e "\033[1;36mCompiled $(shell echo "$?" | wc -w) file(s)\033[0m"
 
