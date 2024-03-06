@@ -5,7 +5,7 @@
 ** char_uppercase
 */
 
-#include "nm.h"
+#include "commons.h"
 
 bool is_char_uppercase(char c)
 {

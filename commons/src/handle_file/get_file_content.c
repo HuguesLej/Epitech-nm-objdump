@@ -5,7 +5,7 @@
 ** get_file_content
 */
 
-#include "nm.h"
+#include "commons.h"
 
 bool get_file_content(file_t *file, const char *bin, const char *path)
 {

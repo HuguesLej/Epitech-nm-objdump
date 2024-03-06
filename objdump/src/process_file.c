@@ -26,10 +26,7 @@ bool process_file(const char *bin, const char *path)
     success = get_file_content(&file, bin, path);
     if (!success)
         return false;
-    get_symbols(&file, &symbols);
-    sort_list(&symbols);
-    print_symbols(&symbols, bin, path, are_mult_files);
-    success = end_process(&file, &symbols);
+    success = end_process(&file);
     if (!success)
         return false;
     return true;

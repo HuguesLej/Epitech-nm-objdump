@@ -5,7 +5,7 @@
 ** print_error
 */
 
-#include "nm.h"
+#include "commons.h"
 
 void print_error(unsigned flag, const char *bin, const char *path)
 {
