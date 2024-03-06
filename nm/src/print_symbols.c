@@ -9,7 +9,7 @@
 
 void choose_print(symbols_t *symbol)
 {
-    if (symbol->addr == 0) {
+    if (symbol->type == 'U' || symbol->type == 'w') {
         printf("%16s %c %s\n", "", symbol->type, symbol->name);
     } else {
         printf("%016lx %c %s\n", symbol->addr, symbol->type, symbol->name);
