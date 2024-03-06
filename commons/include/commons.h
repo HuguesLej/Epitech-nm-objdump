@@ -29,6 +29,11 @@
 #define NO_SYM 3
 
 
+#define REL_FLAGS 17
+#define EXEC_FLAGS 274
+#define DYN_FLAGS 336
+
+
 /* Structure containing usefull data from a file. */
 typedef struct file_s {
     int fd;
@@ -36,6 +41,7 @@ typedef struct file_s {
     void *buf;
     Elf64_Ehdr *ehdr;
     Elf64_Shdr *shdr;
+    unsigned flags;
 } file_t;
 
 

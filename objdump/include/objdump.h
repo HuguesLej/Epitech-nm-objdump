@@ -10,8 +10,11 @@
 #include "commons.h"
 
 
-#define FORMAT_32B "elf32-i386"
-#define FORMAT_64B "elf64-x86-64"
+#define FORMAT_32 "elf32-i386"
+#define FORMAT_64 "elf64-x86-64"
+
+#define ARCHI_32 "i386"
+#define ARCHI_64 "i386:x86-64"
 
 
 /**

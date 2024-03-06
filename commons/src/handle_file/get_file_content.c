@@ -20,6 +20,12 @@ bool get_file_content(file_t *file, const char *bin, const char *path)
             print_error(WG_FILE, bin, path);
             return false;
     }
+    if (file->ehdr->e_type == ET_REL)
+        file->flags = REL_FLAGS;
+    if (file->ehdr->e_type == ET_EXEC)
+        file->flags = EXEC_FLAGS;
+    if (file->ehdr->e_type == ET_DYN)
+        file->flags = DYN_FLAGS;
     file->shdr = (Elf64_Shdr *) (file->buf + file->ehdr->e_shoff);
     return true;
 }
