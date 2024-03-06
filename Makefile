@@ -32,9 +32,10 @@ NM_SRC	=	\
 		$(NM_DIR)/src/list/sort_list.c
 
 OBJDUMP_SRC	=	\
-		$(OBJDUMP_DIR)/src/main.c			\
+		$(OBJDUMP_DIR)/src/main.c					\
+		$(OBJDUMP_DIR)/src/process_file.c			\
 		\
-		$(OBJDUMP_DIR)/src/process_file.c
+		$(OBJDUMP_DIR)/src/print/print_header.c
 
 BUILD	=	build
 

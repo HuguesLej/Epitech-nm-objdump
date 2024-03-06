@@ -26,6 +26,7 @@ bool process_file(const char *bin, const char *path)
     success = get_file_content(&file, bin, path);
     if (!success)
         return false;
+    print_header(&file, path);
     success = end_process(&file);
     if (!success)
         return false;

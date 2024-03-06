@@ -10,6 +10,10 @@
 #include "commons.h"
 
 
+#define FORMAT_32B "elf32-i386"
+#define FORMAT_64B "elf64-x86-64"
+
+
 /**
  * @brief Process a file to get its content.
  *
@@ -19,3 +23,6 @@
  * @return `false` if an error occurred.
  */
 bool process_file(const char *bin, const char *path);
+
+
+void print_header(file_t *file, const char *path);
