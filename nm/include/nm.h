@@ -51,33 +51,38 @@ typedef struct symbols_s {
  * @brief Process a file to get its symbols and print them.
  *
  * @param file Structure containing data about the processed file.
+ * @param bin Name of the current program binary.
  * @param path Path of the processed file.
  * @param are_mult_files Boolean specifying if multiple files are
  * processed. `true` if there are multiple files and `false` otherwise.
  * @return `true` if the function has been executed without error.
  * @return `false` if an error occurred.
  */
-bool process_file(file_t *file, const char *path, bool are_mult_files);
+bool process_file(file_t *file, const char *bin, const char *path,
+    bool are_mult_files);
 
 /**
  * @brief Print all the non empty symbols in a
  * `symbols_t` linked list with their address and type.
  *
  * @param symbols Structure containing all symbols of a file.
+ * @param bin Name of the current program binary.
  * @param path Path of the processed file.
  * @param are_mult_files Boolean specifying if multiple files are
  * processed. `true` if there are multiple files and `false` otherwise.
  */
-void print_symbols(symbols_t **symbols, const char *path, bool are_mult_files);
+void print_symbols(symbols_t **symbols, const char *bin, const char *path,
+    bool are_mult_files);
 
 
 /**
  * @brief Print an error depending on the provided flag.
  *
  * @param flag Flag specifying the error.
+ * @param bin Name of the current program binary.
  * @param path Path to the file that caused the error. Can not be `NULL`.
  */
-void print_error(unsigned flag, const char *path);
+void print_error(unsigned flag, const char *bin, const char *path);
 
 /**
  * @brief Verify if a character is an uppercase letter.
@@ -103,11 +108,12 @@ char char_to_uppercase(char c);
  *
  * @param file Structure to fill with the
  * opened file descriptor and the file size.
+ * @param bin Name of the current program binary.
  * @param path Path of a file.
  * @return `true` if the function is executed successfully.
  * @return `false` in case of error.
  */
-bool open_file(file_t *file, const char *path);
+bool open_file(file_t *file, const char *bin, const char *path);
 
 /**
  * @brief Close an opened file descriptor.
@@ -122,11 +128,12 @@ bool close_file(int fd);
  * @brief Get data from a file and set a `file_t` structure.
  *
  * @param file Structure to contain data from a file.
+ * @param bin Name of the current program binary.
  * @param path Path of a file.
  * @return `true` if the data is successfully got.
  * @return `false` in case of error.
  */
-bool get_file_content(file_t *file, const char *path);
+bool get_file_content(file_t *file, const char *bin, const char *path);
 
 
 /**

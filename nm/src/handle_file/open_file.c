@@ -7,14 +7,14 @@
 
 #include "nm.h"
 
-bool open_file(file_t *file, const char *path)
+bool open_file(file_t *file, const char *bin, const char *path)
 {
     struct stat file_stat;
     int stat_err;
 
     file->fd = open(path, O_RDONLY);
     if (file->fd == -1) {
-        print_error(NO_FILE, path);
+        print_error(NO_FILE, bin, path);
         return false;
     }
     stat_err = fstat(file->fd, &file_stat);
@@ -23,7 +23,7 @@ bool open_file(file_t *file, const char *path)
         return false;
     }
     if ((file_stat.st_mode & S_IFMT) == S_IFDIR) {
-        print_error(IS_DIR, path);
+        print_error(IS_DIR, bin, path);
         return false;
     }
     file->size = file_stat.st_size;

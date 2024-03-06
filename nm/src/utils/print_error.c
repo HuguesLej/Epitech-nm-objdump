@@ -7,18 +7,18 @@
 
 #include "nm.h"
 
-void print_error(unsigned flag, const char *path)
+void print_error(unsigned flag, const char *bin, const char *path)
 {
     if (flag == NO_FILE) {
-        dprintf(STDERR_FILENO, "my_nm: '%s': No such file\n", path);
+        dprintf(STDERR_FILENO, "%s: '%s': No such file\n", bin, path);
     }
     if (flag == IS_DIR) {
-        dprintf(STDERR_FILENO, "my_nm: Warning: '%s' is a directory\n", path);
+        dprintf(STDERR_FILENO, "%s: Warning: '%s' is a directory\n", bin, path);
     }
     if (flag == WG_FILE) {
-        dprintf(STDERR_FILENO, "my_nm: %s: file format not recognized\n", path);
+        dprintf(STDERR_FILENO, "%s: %s: file format not recognized\n", bin, path);
     }
     if (flag == NO_SYM) {
-        dprintf(STDERR_FILENO, "my_nm: %s: no symbols\n", path);
+        dprintf(STDERR_FILENO, "%s: %s: no symbols\n", bin, path);
     }
 }

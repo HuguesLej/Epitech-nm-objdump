@@ -16,7 +16,8 @@ void choose_print(symbols_t *symbol)
     }
 }
 
-void print_symbols(symbols_t **symbols, const char *path, bool are_mult_files)
+void print_symbols(symbols_t **symbols, const char *bin, const char *path,
+    bool are_mult_files)
 {
     symbols_t *tmp = *symbols;
     int cmp;
@@ -35,5 +36,5 @@ void print_symbols(symbols_t **symbols, const char *path, bool are_mult_files)
         tmp = tmp->next;
     }
     if (print_count == 0)
-        print_error(NO_SYM, path);
+        print_error(NO_SYM, bin, path);
 }

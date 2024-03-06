@@ -17,12 +17,12 @@ int main(int ac, char **av)
     if (ac > 2)
         are_mult_files = true;
     if (ac == 1) {
-        success = process_file(&file, "a.out", are_mult_files);
+        success = process_file(&file, av[0], "a.out", are_mult_files);
         if (!success)
             return 84;
     }
     for (int i = 1; i < ac; i++) {
-        success = process_file(&file, av[i], are_mult_files);
+        success = process_file(&file, av[0], av[i], are_mult_files);
         if (!success)
             exit_code = 84;
     }

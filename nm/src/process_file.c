@@ -16,20 +16,21 @@ static bool end_process(file_t *file, symbols_t **symbols)
     return success;
 }
 
-bool process_file(file_t *file, const char *path, bool are_mult_files)
+bool process_file(file_t *file, const char *bin, const char *path,
+    bool are_mult_files)
 {
     bool success;
     symbols_t *symbols = NULL;
 
-    success = open_file(file, path);
+    success = open_file(file, bin, path);
     if (!success)
         return false;
-    success = get_file_content(file, path);
+    success = get_file_content(file, bin, path);
     if (!success)
         return false;
     get_symbols(file, &symbols);
     sort_list(&symbols);
-    print_symbols(&symbols, path, are_mult_files);
+    print_symbols(&symbols, bin, path, are_mult_files);
     success = end_process(file, &symbols);
     if (!success)
         return false;
