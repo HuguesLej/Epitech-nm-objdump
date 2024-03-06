@@ -39,10 +39,10 @@ char get_type(Elf64_Sym *sym, unsigned sh_type, unsigned long sh_flags)
 
     if (st_type == STB_GNU_UNIQUE)
         c = 'u';
-    if (st_bind == STB_WEAK && st_type == STT_OBJECT)
-        c = 'v';
     if (st_bind == STB_WEAK)
         c = 'w';
+    if (st_bind == STB_WEAK && st_type == STT_OBJECT)
+        c = 'v';
     if (c == '?')
         c = find_type(c, sym->st_shndx, sh_type, sh_flags);
     if ((c == 'w' || c == 'v') && sym->st_shndx != SHN_UNDEF)
