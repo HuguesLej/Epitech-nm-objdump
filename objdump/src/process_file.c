@@ -27,7 +27,7 @@ bool process_file(const char *bin, const char *path)
     if (!success)
         return false;
     print_header(&file, path);
-    print_section(&file);
+    print_sections(&file);
     success = end_process(&file);
     if (!success)
         return false;

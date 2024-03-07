@@ -23,7 +23,7 @@ static bool is_section_printable(const char *section_name, Elf64_Shdr *shdr)
     return true;
 }
 
-static void print_chars_hexa(unsigned long remain_size)
+static void print_chars_hexa(unsigned char *data, unsigned long remain_size)
 {
     for (unsigned long i = 0; i < 16; i++) {
         if (i % 4 == 0)
@@ -32,37 +32,42 @@ static void print_chars_hexa(unsigned long remain_size)
             printf("%2s", "");
             continue;
         }
-        printf("%02x", 0);
+        printf("%02x", data[i]);
     }
 }
 
-static void print_chars(unsigned long remain_size)
+static void print_chars(unsigned char *data, unsigned long remain_size)
 {
-    for (unsigned long j = 0; j < 16; j++) {
-        if (j >= remain_size) {
+    for (unsigned long i = 0; i < 16; i++) {
+        if (i >= remain_size) {
             printf("%1s", "");
             continue;
         }
-        printf("%c", '.');
+        if (data[i] < LOW_PRINT_CHAR || data[i] > HIGH_PRINT_CHAR) {
+            printf("%c", NO_PRINT_PLACEHOLDER);
+        } else {
+            printf("%c", data[i]);
+        }
     }
 }
 
 static void print_section_content(void *buf, Elf64_Shdr *shdr)
 {
     unsigned long remain_size;
+    unsigned char *data;
 
-    (void) buf;
     for (unsigned long i = 0; i < shdr->sh_size; i += 16) {
         remain_size = shdr->sh_size - i;
+        data = (unsigned char *) (buf + shdr->sh_offset + i);
         printf(" %04lx", (shdr->sh_addr + i));
-        print_chars_hexa(remain_size);
+        print_chars_hexa(data, remain_size);
         printf("%2s", "");
-        print_chars(remain_size);
+        print_chars(data, remain_size);
         printf("\n");
     }
 }
 
-void print_section(file_t *file)
+void print_sections(file_t *file)
 {
     unsigned short shstrndx = file->ehdr->e_shstrndx;
     unsigned long shstr_offset = file->shdr[shstrndx].sh_offset;

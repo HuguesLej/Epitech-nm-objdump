@@ -10,11 +10,23 @@
 #include "commons.h"
 
 
+/* File format for 32 bits architecture. */
 #define FORMAT_32 "elf32-i386"
+/* File format for 64 bits architecture. */
 #define FORMAT_64 "elf64-x86-64"
 
+/* 32 bits architecture name. */
 #define ARCHI_32 "i386"
+/* 64 bits architecture name. */
 #define ARCHI_64 "i386:x86-64"
+
+/* The lowest printable character. */
+#define LOW_PRINT_CHAR ' '
+/* The highest printable character. */
+#define HIGH_PRINT_CHAR '~'
+
+/* Placeholder used when printing non printable character. */
+#define NO_PRINT_PLACEHOLDER '.'
 
 
 /**
@@ -28,6 +40,17 @@
 bool process_file(const char *bin, const char *path);
 
 
+/**
+ * @brief Print the objdump header.
+ *
+ * @param file Structure containing data from the processed file.
+ * @param path Path of the processed file.
+ */
 void print_header(file_t *file, const char *path);
 
-void print_section(file_t *file);
+/**
+ * @brief Print informations from file sections.
+ *
+ * @param file Structure containing data from the processed file.
+ */
+void print_sections(file_t *file);
