@@ -23,10 +23,42 @@ static bool is_section_printable(const char *section_name, Elf64_Shdr *shdr)
     return true;
 }
 
-static void print_section_content(Elf64_Shdr *shdr)
+static void print_chars_address(unsigned long remain_size)
 {
+    for (unsigned long i = 0; i < 16; i++) {
+        if (i % 4 == 0)
+            printf("%1s", "");
+        if (i >= remain_size) {
+            printf("%2s", "");
+            continue;
+        }
+        printf("%02x", 0);
+    }
+}
+
+static void print_chars(unsigned long remain_size)
+{
+    for (unsigned long j = 0; j < 16; j++) {
+        if (j >= remain_size) {
+            printf("%1s", "");
+            continue;
+        }
+        printf("%c", '.');
+    }
+}
+
+static void print_section_content(void *buf, Elf64_Shdr *shdr)
+{
+    unsigned long remain_size;
+
+    (void) buf;
     for (unsigned long i = 0; i < shdr->sh_size; i += 16) {
-        printf(" %04lx\n", (shdr->sh_addr + i));
+        remain_size = shdr->sh_size - i;
+        printf(" %04lx", (shdr->sh_addr + i));
+        print_chars_address(remain_size);
+        printf("%2s", "");
+        print_chars(remain_size);
+        printf("\n");
     }
 }
 
@@ -45,6 +77,6 @@ void print_section(file_t *file)
         if (!is_printable)
             continue;
         printf("Contents of section %s:\n", name);
-        print_section_content(&file->shdr[i]);
+        print_section_content(file->buf, &file->shdr[i]);
     }
 }
