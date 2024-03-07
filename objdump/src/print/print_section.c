@@ -23,7 +23,7 @@ static bool is_section_printable(const char *section_name, Elf64_Shdr *shdr)
     return true;
 }
 
-static void print_chars_address(unsigned long remain_size)
+static void print_chars_hexa(unsigned long remain_size)
 {
     for (unsigned long i = 0; i < 16; i++) {
         if (i % 4 == 0)
@@ -55,7 +55,7 @@ static void print_section_content(void *buf, Elf64_Shdr *shdr)
     for (unsigned long i = 0; i < shdr->sh_size; i += 16) {
         remain_size = shdr->sh_size - i;
         printf(" %04lx", (shdr->sh_addr + i));
-        print_chars_address(remain_size);
+        print_chars_hexa(remain_size);
         printf("%2s", "");
         print_chars(remain_size);
         printf("\n");
