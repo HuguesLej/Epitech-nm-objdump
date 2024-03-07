@@ -23,6 +23,13 @@ static bool is_section_printable(const char *section_name, Elf64_Shdr *shdr)
     return true;
 }
 
+static void print_section_content(Elf64_Shdr *shdr)
+{
+    for (unsigned long i = 0; i < shdr->sh_size; i += 16) {
+        printf(" %04lx\n", (shdr->sh_addr + i));
+    }
+}
+
 void print_section(file_t *file)
 {
     unsigned short shstrndx = file->ehdr->e_shstrndx;
@@ -38,5 +45,6 @@ void print_section(file_t *file)
         if (!is_printable)
             continue;
         printf("Contents of section %s:\n", name);
+        print_section_content(&file->shdr[i]);
     }
 }
