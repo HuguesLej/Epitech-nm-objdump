@@ -29,3 +29,5 @@ bool process_file(const char *bin, const char *path);
 
 
 void print_header(file_t *file, const char *path);
+
+void print_section(file_t *file);
